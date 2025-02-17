@@ -24,4 +24,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Python script
+        env:
+          SUPABASE_API_KEY: ${{ secrets.SUPABASE_API_KEY }}
+          PUSHOVER_APP_TOKEN: ${{ secrets.PUSHOVER_APP_TOKEN}}
+          PUSHOVER_USER_TOKEN:  ${{ secrets.PUSHOVER_USER_TOKEN}}
         run: python fact_sender.py
