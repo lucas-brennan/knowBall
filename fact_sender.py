@@ -1,11 +1,11 @@
 from supabase import create_client, Client
-import Constants
+import os
 from pushover import Pushover
 
 def main():
-    supabase: Client = create_client("https://urpytqjjpixevrhbzkvx.supabase.co", Constants.SUPABASE_API_KEY)
-    po = Pushover(Constants.PUSHOVER_APP_TOKEN)
-    po.user(Constants.PUSHOVER_USER_TOKEN)
+    supabase: Client = create_client("https://urpytqjjpixevrhbzkvx.supabase.co", os.environ['SUPABASE_API_KEY'])
+    po = Pushover(os.environ['PUSHOVER_APP_TOKEN'])
+    po.user(os.environ['PUSHOVER_USER_TOKEN'])
     response = supabase.rpc("get_random_fact", params={}).execute()
     if not response.data:
         empty_msg = po.msg("We have run out of facts! Resetting db and will return tomorrow.")
